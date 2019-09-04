@@ -11,10 +11,21 @@ public class CommandReader {
 		EXIT
 	};
 	
+	
 	public void executor(String input) {
 		switch(input) {
-		case("ls"):
+		case("LS"):
 			;
+		case("CD"):
+			;
+		case("MKDIR"):
+			;
+		case("UPLOAD"):
+			;
+		case("DOWNLOAD"):
+			;
+		
+		
 		}
 		
 	};
