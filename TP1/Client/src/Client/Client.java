@@ -28,7 +28,7 @@ public class Client {
 			}
 			
 			DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
-			dos.writeUTF(value); // faireun check
+			dos.writeUTF(value); // faire un check
 		} finally {
 			// Fermeture du socket.
 			clientSocket.close();
