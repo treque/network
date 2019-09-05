@@ -7,18 +7,18 @@ import java.net.Socket;
 public class Handler extends Thread {
 
 	private Socket socket;
-	public Handler()
+	public Handler(Socket socket)
 	{
-	
+		this.socket = socket;
 	}
 	@Override
 	public void run()
 	{
+		System.out.println(socket);
 		try {
 			DataInputStream in = new DataInputStream(socket.getInputStream());
 			System.out.println(in.readUTF());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
