@@ -5,19 +5,24 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Server {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
-		//int serverPort = 5050; on doit le chagner a chaque fois parce que le finally est pas called.. en raison du while true.
-		//String serverAddress = "127.0.0.1";
-		serverSocket = new ServerSocket(5020);
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("IP: ");
+		String serverAddress = input.nextLine();
+		// check with inet4 gethostaddress equals address
+		
+		System.out.println("PORT: ");
+		int portNumber = Integer.parseInt(input.nextLine());
+		
+		serverSocket = new ServerSocket(portNumber);
 		serverSocket.setReuseAddress(true);
-		
-		//InetAddress serverIP = Inet4Address.getByName(serverAddress);
-		//serverSocket.bind(new InetSocketAddress(serverIP, serverPort));
-		
+
 		try 
 		{
 				while (true)

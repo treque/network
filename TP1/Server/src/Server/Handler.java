@@ -17,7 +17,10 @@ public class Handler extends Thread {
 		System.out.println(socket);
 		try {
 			DataInputStream in = new DataInputStream(socket.getInputStream());
-			System.out.println(in.readUTF());
+			while (true)
+			{
+				System.out.println(in.readUTF());	
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
