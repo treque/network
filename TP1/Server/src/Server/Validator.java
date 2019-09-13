@@ -1,6 +1,4 @@
-package Client;
-
-import java.util.List;
+package Server;
 
 public class Validator {
 	
@@ -27,6 +25,7 @@ public class Validator {
 	{
 		String[] IPsChar = IPInput.split("\\.");
 		boolean isIPValid = true;
+		System.out.println(IPsChar.length);
 		if (IPsChar.length == 4) 
 		{
 			
@@ -34,6 +33,7 @@ public class Validator {
 			{
 				try {
 					  Integer result = Integer.parseInt(IPChar);
+					  System.out.println(result);
 					  if (result > 255 || result < 0)
 					  {
 						  isIPValid = false;
@@ -54,5 +54,5 @@ public class Validator {
 		}
 		return isIPValid;
 	}
-	
+
 }

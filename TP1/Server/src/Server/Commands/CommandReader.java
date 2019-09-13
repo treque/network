@@ -10,7 +10,7 @@ public class CommandReader {
 	
 	private Path currentPath;
 	
-	CommandReader(Path currentPath) {
+	public CommandReader(Path currentPath) {
 		this.currentPath = currentPath;
 	}
 	
@@ -36,7 +36,7 @@ public class CommandReader {
 			EXITCommand exitexecutor = new EXITCommand(currentPath);
 			return exitexecutor.excecuteCommand(command);
 		default:
-			throw new IllegalArgumentException(input + "is not recognized as an internal or external command, operable program or batch file.");
+			throw new IllegalArgumentException(command[0] + "is not recognized as an internal or external command, operable program or batch file.");
 		}
 		
 	};
