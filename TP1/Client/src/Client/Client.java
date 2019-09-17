@@ -24,8 +24,11 @@ public class Client {
 			System.out.println("PORT: ");
 			int portNumber = Integer.parseInt(input.nextLine());
 			
+			System.out.println("ASDFASDFASDFASDFASDFSAD");
 			clientSocket = new Socket(serverAddress, portNumber);
-			
+			System.out.println(clientSocket.getPort());
+			clientSocket.close();
+			System.out.println(clientSocket.getPort());
 			String value = "jdkfhjksdhfk";
 			DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
 			while (value != "quit") 
@@ -36,7 +39,7 @@ public class Client {
 			}
 		} finally {
 			// Fermeture du socket.
-			clientSocket.close();
+			//clientSocket.close();
 		}
 	}
 }
