@@ -1,5 +1,6 @@
 package Server.Commands;
 
+import java.io.DataOutputStream;
 import java.nio.file.Path;
 
 public class CDCommand extends AbstractCommand {
@@ -9,9 +10,8 @@ public class CDCommand extends AbstractCommand {
 	}
 
 	@Override
-	public String excecuteCommand(String[] command) {
-		// TODO Auto-generated method stub
-		return null;
+	public String executeCommand(String[] command) {
+		return "Showing you what cd command does";
 	}
 	
 	

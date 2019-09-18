@@ -1,6 +1,8 @@
 package Client;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import Client.Validator;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -9,37 +11,44 @@ import java.util.Scanner;
 public class Client {
 
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException {
-
+		boolean isPortValid = false;
+		boolean isIPValid = false;
 		Socket clientSocket = null;
 		try {
 			// Création d'un socket client vers le serveur. Ici 127.0.0.1 est indicateur que
 			// le serveur s'exécute sur la machine locale. Il faut changer 127.0.0.1 pour
 			// l'adresse IP du serveur si celui-ci ne s'exécute pas sur la même machine. Le port est 5000.
-			
+			String serverAddress = null;
+			int portNumber;
 			Scanner input = new Scanner(System.in);
-
-			System.out.println("IP: ");
-			String serverAddress = input.nextLine();
-			
-			System.out.println("PORT: ");
-			int portNumber = Integer.parseInt(input.nextLine());
-			
-			System.out.println("ASDFASDFASDFASDFASDFSAD");
+			do {
+				System.out.println("IP: \n");
+				serverAddress = input.nextLine();
+				isIPValid = Validator.isIPValid(serverAddress);
+			} while (!isIPValid);
+			do {
+				System.out.println("PORT: \n");
+				String inputString = input.nextLine();
+				 // verifier l'erreur avec le parse
+				isPortValid = Validator.isPortValid(inputString);
+				portNumber = Integer.parseInt(inputString);
+			} while (!isPortValid);
 			clientSocket = new Socket(serverAddress, portNumber);
-			System.out.println(clientSocket.getPort());
-			clientSocket.close();
-			System.out.println(clientSocket.getPort());
+
 			String value = "jdkfhjksdhfk";
 			DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
-			while (value != "quit") 
+			DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+			while (value != "exit") 
 			{
 				value = input.nextLine();
 				dos.writeUTF(value); // faire un check
 				dos.flush();
+				System.out.println(in.readUTF());
 			}
+			
 		} finally {
 			// Fermeture du socket.
-			//clientSocket.close();
+			clientSocket.close();
 		}
 	}
 }

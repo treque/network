@@ -5,7 +5,7 @@ import java.nio.file.Path;
 
 public abstract class AbstractCommand {
 	
-	private Path currentPath;
+	protected Path currentPath;
 	
 	AbstractCommand(Path currentPath)
 	{
@@ -20,7 +20,7 @@ public abstract class AbstractCommand {
 		this.currentPath = currentPath;
 	}
 	
-	public abstract String excecuteCommand(String[] command);
+	public abstract String executeCommand(String[] command);
 	
 	
 

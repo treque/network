@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Validator {
 	
-	public boolean isPortValid(String portInput)
+	public static boolean isPortValid(String portInput)
 	{
 		
 		try {
@@ -23,27 +23,30 @@ public class Validator {
 	}
 	
 	// refactor s t pppppppppppppp
-	public boolean isIPValid(String IPInput)
+	public static boolean isIPValid(String IPInput)
 	{
-		String[] IPsChar = IPInput.split(".");
-		boolean isIPValid = true;
+		String[] IPsChar = IPInput.split("\\.");
+		boolean isIPValid = false;
 		if (IPsChar.length == 4) 
 		{
+			isIPValid = true;
+		
 			for (String IPChar : IPsChar) 
 			{
 				try {
 					  Integer result = Integer.parseInt(IPChar);
-					  if (result > 255 && result < 0)
+					  if (result > 255 || result < 0)
 					  {
 						  isIPValid = false;
 						  break;
 					  }
-					  
 					}
 				catch (NumberFormatException e)
 				{
 					isIPValid = false;
 				}
+			
+			isIPValid = true;
 			}
 		}
 		else

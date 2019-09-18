@@ -10,7 +10,7 @@ public class CommandReader {
 	
 	private Path currentPath;
 	
-	CommandReader(Path currentPath) {
+	public CommandReader(Path currentPath) {
 		this.currentPath = currentPath;
 	}
 	
@@ -18,25 +18,26 @@ public class CommandReader {
 		String[] command = input.split(" ");
 		switch(command[0]) {
 		case("ls"):
-			LSCommand lsexecutor = new LSCommand(currentPath);
-			return lsexecutor.excecuteCommand(command);
+			LSCommand lsExecutor = new LSCommand(currentPath);
+			return lsExecutor.executeCommand(command);
 		case("cd"):
-			CDCommand cdexecutor = new CDCommand(currentPath);
-			return cdexecutor.excecuteCommand(command);
+			CDCommand cdExecutor = new CDCommand(currentPath);
+			return cdExecutor.executeCommand(command);
 		case("mkdir"):
-			MKDIRCommand mkdirexecutor = new MKDIRCommand(currentPath);
-			return mkdirexecutor.excecuteCommand(command);
+			MKDIRCommand mkdirExecutor = new MKDIRCommand(currentPath);
+			return mkdirExecutor.executeCommand(command);
 		case("upload"):
-			UPLOADCommand uploadexecutor = new UPLOADCommand(currentPath);
-			return uploadexecutor.excecuteCommand(command);
+			UPLOADCommand uploadExecutor = new UPLOADCommand(currentPath);
+			return uploadExecutor.executeCommand(command);
 		case("download"):
-			DOWNLOADCommand downloadexecutor = new DOWNLOADCommand(currentPath);
-			return downloadexecutor.excecuteCommand(command);
+			DOWNLOADCommand downloadExecutor = new DOWNLOADCommand(currentPath);
+			return downloadExecutor.executeCommand(command);
 		case("exit"):
-			EXITCommand exitexecutor = new EXITCommand(currentPath);
-			return exitexecutor.excecuteCommand(command);
+			EXITCommand exitExecutor = new EXITCommand(currentPath);
+			return exitExecutor.executeCommand(command);
 		default:
-			throw new IllegalArgumentException(input + "is not recognized as an internal or external command, operable program or batch file.");
+			return "Unrecognized command";
+			//throw new IllegalArgumentException(input + "is not recognized as an internal or external command, operable program or batch file.");
 		}
 		
 	};

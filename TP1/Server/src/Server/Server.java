@@ -7,18 +7,30 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
+import Server.Validator;
+
 public class Server {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
+		boolean isIPValid = false;
+		boolean isPortValid = false;
+		
+		String serverAddress = null;
+		int portNumber;
 		Scanner input = new Scanner(System.in);
-		
-		System.out.println("IP: ");
-		String serverAddress = input.nextLine();
-		// check with inet4 gethostaddress equals address
-		
-		System.out.println("PORT: ");
-		int portNumber = Integer.parseInt(input.nextLine());
+		do {
+			System.out.println("IP: \n");
+			serverAddress = input.nextLine();
+			isIPValid = Validator.isIPValid(serverAddress);
+		} while (!isIPValid);
+		do {
+			System.out.println("PORT: \n");
+			String inputString = input.nextLine();
+			//verifier l'erreur avec le parse
+			isPortValid = Validator.isPortValid(inputString);
+			portNumber = Integer.parseInt(inputString);
+		} while (!isPortValid);
 		
 		serverSocket = new ServerSocket(portNumber);
 		serverSocket.setReuseAddress(true);

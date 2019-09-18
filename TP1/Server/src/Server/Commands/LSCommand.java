@@ -1,6 +1,8 @@
 package Server.Commands;
 
+import java.io.File;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 public class LSCommand extends AbstractCommand {
 
@@ -10,10 +12,12 @@ public class LSCommand extends AbstractCommand {
 	}
 
 	@Override
-	public String excecuteCommand(String[] command) 
+	public String executeCommand(String[] command) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		// should current dir be passed instead of currentpath
+		File currentDir = new File(System.getProperty("user.dir"));
+		String[] dirFilesNames = currentDir.list();
+		return Arrays.toString(dirFilesNames);
 	}
 
 }

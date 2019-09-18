@@ -11,10 +11,10 @@ public class UPLOADCommand extends AbstractCommand
 	}
 	
 	@Override
-	public String excecuteCommand(String[] command) 
+	public String executeCommand(String[] command) 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return "upload something hihi";
 	}
 
 }

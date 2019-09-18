@@ -10,10 +10,10 @@ public class MKDIRCommand extends AbstractCommand {
 	}
 	
 	@Override
-	public String excecuteCommand(String[] command) 
+	public String executeCommand(String[] command) 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return "MAKE DIR COMMAND";
 	}
 
 }

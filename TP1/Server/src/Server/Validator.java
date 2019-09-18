@@ -29,6 +29,7 @@ public class Validator {
 		boolean isIPValid = true;
 		if (IPsChar.length == 4) 
 		{
+			isIPValid = true;
 			for (String IPChar : IPsChar) 
 			{
 				try {
