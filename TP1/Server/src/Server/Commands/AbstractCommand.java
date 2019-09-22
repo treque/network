@@ -1,23 +1,22 @@
 package Server.Commands;
 
-import java.nio.file.Path;
-// java.nio.file.Files
+import java.io.File;
 
 public abstract class AbstractCommand {
 	
-	protected Path currentPath;
+	protected File currentDir;
 	
-	AbstractCommand(Path currentPath)
+	AbstractCommand(File currentDir)
 	{
-		this.currentPath = currentPath;
+		this.currentDir = currentDir;
 	}
 
-	public Path getCurrentPath() {
-		return currentPath;
+	public File getCurrentPath() {
+		return currentDir;
 	}
 
-	public void setCurrentPath(Path currentPath) {
-		this.currentPath = currentPath;
+	public void setCurrentPath(File currentDir) {
+		this.currentDir = currentDir;
 	}
 	
 	public abstract String executeCommand(String[] command);

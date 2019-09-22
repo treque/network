@@ -1,13 +1,14 @@
 package Server.Commands;
 
+import java.io.File;
 import java.nio.file.Path;
 
 public class UPLOADCommand extends AbstractCommand 
 {
 
-	UPLOADCommand(Path currentPath)
+	UPLOADCommand(File currentDir) 
 	{
-		super(currentPath);
+		super(currentDir);
 	}
 	
 	@Override

@@ -1,12 +1,13 @@
 package Server.Commands;
 
+import java.io.File;
 import java.nio.file.Path;
 
 public class DOWNLOADCommand extends AbstractCommand {
 
-	DOWNLOADCommand(Path currentPath) 
+	DOWNLOADCommand(File currentDir) 
 	{
-		super(currentPath);
+		super(currentDir);
 	}
 	
 	@Override

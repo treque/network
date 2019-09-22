@@ -2,6 +2,7 @@ package Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.file.Paths;
@@ -22,7 +23,7 @@ public class Handler extends Thread {
 	public void run()
 	{
 		System.out.println("Socket: " + socket + " connection established");
-		cmdReader = new CommandReader(Paths.get("."));
+		cmdReader = new CommandReader(new File(System.getProperty("user.dir")));
 		try {
 			DataInputStream in = new DataInputStream(socket.getInputStream());
 			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());

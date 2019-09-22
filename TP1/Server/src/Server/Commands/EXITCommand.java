@@ -1,13 +1,14 @@
 package Server.Commands;
 
+import java.io.File;
 import java.nio.file.Path;
 
 public class EXITCommand extends AbstractCommand 
 {
 
-	EXITCommand(Path currentPath) 
+	EXITCommand(File currentDir) 
 	{
-		super(currentPath);
+		super(currentDir);
 	}
 	
 	@Override

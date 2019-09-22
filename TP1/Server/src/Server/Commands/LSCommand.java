@@ -6,16 +6,16 @@ import java.util.Arrays;
 
 public class LSCommand extends AbstractCommand {
 
-	LSCommand(Path currentPath) 
+	LSCommand(File currentDir) 
 	{
-		super(currentPath);
+		super(currentDir);
 	}
 
 	@Override
 	public String executeCommand(String[] command) 
 	{
 		// should current dir be passed instead of currentpath
-		File currentDir = new File(System.getProperty("user.dir"));
+		// File currentDir = new File(System.getProperty("user.dir"));
 		String[] dirFilesNames = currentDir.list();
 		return Arrays.toString(dirFilesNames);
 	}
