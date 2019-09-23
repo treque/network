@@ -24,8 +24,7 @@ public class CDCommand extends AbstractCommand
 				   throw new ArrayIndexOutOfBoundsException( "You have to have one and only one argument with cd");
 			   }
 			   String cdArgument = command[1];
-			   if (currentDir.getPath().charAt((int) (currentDir.getPath().length()-1)) != File.separatorChar 
-					   && command[1].charAt(0) != File.separatorChar) 
+			   if (!currentDir.getPath().endsWith(File.separator) && !command[1].startsWith(File.separator)) 
 			   {
 				   cdArgument = File.separator + command[1];
 			   }
