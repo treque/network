@@ -16,19 +16,29 @@ public class CDCommand extends AbstractCommand {
 	@Override
 	public String executeCommand(String[] command) {
 		try {
-			// jai decide que sil passe plus de 2 arguments, que les arguments qui suivent font partie du nom du repertoire...
-			File directory = new File(this.currentDir.getCanonicalPath() + String.join("", command).substring(3));
-			if(directory.isDirectory()) 
-			{
-				return directory.getCanonicalPath(); 
-			} 
-			else
-			{
-				return "The directory you requested does not exist";
-			}
+			   System.out.println(this.currentDir.getPath());
+			   System.out.println(command);
+			   if (command.length != 2) {
+			   throw new ArrayIndexOutOfBoundsException( "You have to have one and only one argument with cd");
+			   }
+			   String cdArgument = command[1];
+			   if (currentDir.getPath().charAt((int) (currentDir.getPath().length()-1)) != File.separatorChar && command[1].charAt(0) != File.separatorChar) {
+				   cdArgument = File.separator + command[1];
+			   }
+			   System.out.println(this.currentDir.getPath() + cdArgument);
+			   File directory = new File(this.currentDir.getCanonicalPath() + cdArgument);
+			   if(directory.isDirectory())
+			   {
+				   return directory.getCanonicalPath();
+			   }
+			   else
+			   {
+				   throw new IllegalArgumentException( "The directory you requested does not exist");
+			   }
+
 		} catch (IOException e) 
 		{
-			return "Error getting the canonical path... ";
+			return this.currentDir.getPath();
 		}
 	}
 	

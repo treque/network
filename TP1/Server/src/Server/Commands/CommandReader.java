@@ -23,7 +23,14 @@ public class CommandReader {
 			return lsExecutor.executeCommand(command);
 		case("cd"):
 			CDCommand cdExecutor = new CDCommand(currentDir);
-			this.currentDir = new File(cdExecutor.executeCommand(command));
+
+			try {
+				File newLocation = new File(cdExecutor.executeCommand(command));
+				this.currentDir = newLocation;
+			} catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+				return "your input doesnt make sense";
+			}
+
 			return this.currentDir.getPath();
 		case("mkdir"):
 			MKDIRCommand mkdirExecutor = new MKDIRCommand(currentDir);
