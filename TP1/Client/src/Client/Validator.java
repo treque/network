@@ -1,6 +1,5 @@
 package Client;
 
-import java.util.List;
 
 public class Validator {
 	

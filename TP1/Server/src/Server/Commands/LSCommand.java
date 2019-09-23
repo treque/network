@@ -1,7 +1,6 @@
 package Server.Commands;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.Arrays;
 
 public class LSCommand extends AbstractCommand {

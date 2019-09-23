@@ -1,8 +1,8 @@
 package Server;
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
+// import java.net.Inet4Address;
+// import java.net.InetAddress;
+// import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -23,6 +23,10 @@ public class Server {
 			System.out.println("IP: \n");
 			serverAddress = input.nextLine();
 			isIPValid = Validator.isIPValid(serverAddress);
+			if (!isIPValid)
+			{
+				System.out.println("The ip you entered is not valid");
+			}
 		} while (!isIPValid);
 		do {
 			System.out.println("PORT: \n");
@@ -30,6 +34,10 @@ public class Server {
 			//verifier l'erreur avec le parse
 			isPortValid = Validator.isPortValid(inputString);
 			portNumber = Integer.parseInt(inputString);
+			if (!isPortValid)
+			{
+				System.out.println("The port you entered is not valid");
+			}
 		} while (!isPortValid);
 		
 		serverSocket = new ServerSocket(portNumber);
@@ -47,6 +55,7 @@ public class Server {
 		finally 
 		{
 			serverSocket.close();
+			input.close();
 			if (socket != null)
 			{
 				socket.close();
