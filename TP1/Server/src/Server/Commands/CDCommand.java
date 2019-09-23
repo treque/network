@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class CDCommand extends AbstractCommand {
+public class CDCommand extends AbstractCommand 
+{
 	
 	CDCommand(File currentDir) 
 	{
@@ -15,31 +16,37 @@ public class CDCommand extends AbstractCommand {
 
 	@Override
 	public String executeCommand(String[] command) {
-		try {
+		
 			   System.out.println(this.currentDir.getPath());
 			   System.out.println(command);
-			   if (command.length != 2) {
-			   throw new ArrayIndexOutOfBoundsException( "You have to have one and only one argument with cd");
+			   if (command.length != 2) 
+			   {
+				   throw new ArrayIndexOutOfBoundsException( "You have to have one and only one argument with cd");
 			   }
 			   String cdArgument = command[1];
-			   if (currentDir.getPath().charAt((int) (currentDir.getPath().length()-1)) != File.separatorChar && command[1].charAt(0) != File.separatorChar) {
+			   if (currentDir.getPath().charAt((int) (currentDir.getPath().length()-1)) != File.separatorChar 
+					   && command[1].charAt(0) != File.separatorChar) 
+			   {
 				   cdArgument = File.separator + command[1];
 			   }
 			   System.out.println(this.currentDir.getPath() + cdArgument);
-			   File directory = new File(this.currentDir.getCanonicalPath() + cdArgument);
+			   File directory = new File(this.currentDir.getPath() + cdArgument);
 			   if(directory.isDirectory())
 			   {
-				   return directory.getCanonicalPath();
+				   try 
+				   {
+					   return directory.getCanonicalPath();
+				   } catch (IOException e) 
+					{
+						return directory.getPath();
+					}
 			   }
 			   else
 			   {
 				   throw new IllegalArgumentException( "The directory you requested does not exist");
 			   }
 
-		} catch (IOException e) 
-		{
-			return this.currentDir.getPath();
-		}
+		
 	}
 	
 }
