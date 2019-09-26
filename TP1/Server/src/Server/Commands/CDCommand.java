@@ -13,13 +13,7 @@ public class CDCommand extends AbstractCommand
 
 	@Override
 	public String executeCommand(String[] command) {
-		
-			   System.out.println(this.currentDir.getPath());
-			   System.out.println(command);
-			   if (command.length != 2) 
-			   {
-				   throw new ArrayIndexOutOfBoundsException( "You have to have one and only one argument with cd");
-			   }
+
 			   String cdArgument = command[1];
 			   if (!currentDir.getPath().endsWith(File.separator) && !command[1].startsWith(File.separator)) 
 			   {

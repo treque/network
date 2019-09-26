@@ -16,37 +16,53 @@ public class CommandReader {
 		String[] command = input.split(" ");
 		switch(command[0]) {
 		case("ls"):
-			LSCommand lsExecutor = new LSCommand(currentDir);
-			return lsExecutor.executeCommand(command);
+			if (hasRightArgumentNumber(1, command)) {
+				LSCommand lsExecutor = new LSCommand(currentDir);
+				return lsExecutor.executeCommand(command);
+			}
 		case("cd"):
-			CDCommand cdExecutor = new CDCommand(currentDir);
-
-			try {
-				File newLocation = new File(cdExecutor.executeCommand(command));
-				this.currentDir = newLocation;
-			} catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-				return "your input doesnt make sense";
+			if (hasRightArgumentNumber(2, command)) {
+				CDCommand cdExecutor = new CDCommand(currentDir);
+	
+				try {
+					File newLocation = new File(cdExecutor.executeCommand(command));
+					this.currentDir = newLocation;
+				} catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+					return "your input doesnt make sense";
+				}
+				return this.currentDir.getPath();
 			}
 
-			return this.currentDir.getPath();
 		case("mkdir"):
-			MKDIRCommand mkdirExecutor = new MKDIRCommand(currentDir);
-			return mkdirExecutor.executeCommand(command);
+			if (hasRightArgumentNumber(2, command)) {
+				MKDIRCommand mkdirExecutor = new MKDIRCommand(currentDir);
+				return mkdirExecutor.executeCommand(command);
+			}
 		case("upload"):
-			UPLOADCommand uploadExecutor = new UPLOADCommand(currentDir);
-			return uploadExecutor.executeCommand(command);
+			if (hasRightArgumentNumber(2, command)) {
+				UPLOADCommand uploadExecutor = new UPLOADCommand(currentDir);
+				return uploadExecutor.executeCommand(command);
+			}
 		case("download"):
-			DOWNLOADCommand downloadExecutor = new DOWNLOADCommand(currentDir);
-			return downloadExecutor.executeCommand(command);
+			if (hasRightArgumentNumber(2, command)) {
+				DOWNLOADCommand downloadExecutor = new DOWNLOADCommand(currentDir);
+				return downloadExecutor.executeCommand(command);
+			}
 		case("exit"):
+			if (hasRightArgumentNumber(1, command)) {
 			EXITCommand exitExecutor = new EXITCommand(currentDir);
 			return exitExecutor.executeCommand(command);
+			}
 		default:
 			return "Unrecognized command";
 			//throw new IllegalArgumentException(input + "is not recognized as an internal or external command, operable program or batch file.");
 		}
 		
-	};
+	}
+	
+	private boolean hasRightArgumentNumber(int supposedLength, String[] command) {
+		   return command.length == supposedLength;
+	}
 	
 
 	
