@@ -19,7 +19,6 @@ public class CDCommand extends AbstractCommand
 			   {
 				   cdArgument = File.separator + command[1];
 			   }
-			   System.out.println(this.currentDir.getPath() + cdArgument);
 			   File directory = new File(this.currentDir.getPath() + cdArgument);
 			   if(directory.isDirectory())
 			   {

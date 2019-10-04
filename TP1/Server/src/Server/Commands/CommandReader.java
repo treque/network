@@ -23,18 +23,17 @@ public class CommandReader {
 		case("cd"):
 			if (hasRightArgumentNumber(2, command)) {
 				CDCommand cdExecutor = new CDCommand(currentDir);
-	
 				try {
-					File newLocation = new File(cdExecutor.executeCommand(command));
-					this.currentDir = newLocation;
-				} catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+					this.currentDir = new File(cdExecutor.executeCommand(command));
+				} catch (IllegalArgumentException e) {
 					return "your input doesnt make sense";
 				}
+				System.out.println(this.currentDir.getPath());
 				return this.currentDir.getPath();
 			}
 
 		case("mkdir"):
-			if (hasRightArgumentNumber(2, command)) {
+			if(command.length > 1) {
 				MKDIRCommand mkdirExecutor = new MKDIRCommand(currentDir);
 				return mkdirExecutor.executeCommand(command);
 			}
