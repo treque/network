@@ -1,15 +1,18 @@
 package Server.Commands;
 import java.io.File;
+import java.net.Socket;
 
 public class CommandReader {
 	
 	// Il doit y avoir une classe qui tiendrait en memoire l'etat courant(ou le thread est rendu dans l'arborescence)
 	// https://docs.oracle.com/javase/tutorial/essential/io/dirs.html
 	
-	private File currentDir;
+	public File currentDir;
+	private Socket socket;
 	
-	public CommandReader(File currentDir) {
+	public CommandReader(File currentDir, Socket socket) {
 		this.currentDir = currentDir;
+		this.socket = socket;
 	}
 	
 	public String executor(String input) {
@@ -28,8 +31,7 @@ public class CommandReader {
 				} catch (IllegalArgumentException e) {
 					return "your input doesnt make sense";
 				}
-				System.out.println(this.currentDir.getPath());
-				return this.currentDir.getPath();
+				return "Vous etes dans le dossier: " + currentDir.getPath();
 			}
 
 		case("mkdir"):
@@ -49,13 +51,11 @@ public class CommandReader {
 			}
 		case("exit"):
 			if (hasRightArgumentNumber(1, command)) {
-			EXITCommand exitExecutor = new EXITCommand(currentDir);
-			return exitExecutor.executeCommand(command);
+				return "Client " + socket.getPort() + " has disconnected";
 			}
 		default:
 			return "Unrecognized command";
-			//throw new IllegalArgumentException(input + "is not recognized as an internal or external command, operable program or batch file.");
-		}
+			}
 		
 	}
 	

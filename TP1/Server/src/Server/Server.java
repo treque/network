@@ -17,7 +17,7 @@ public class Server {
 		boolean isPortValid = false;
 		
 		String serverAddress = null;
-		int portNumber;
+		int portNumber = 0;
 		Scanner input = new Scanner(System.in);
 		do {
 			System.out.println("IP: \n");
@@ -33,8 +33,10 @@ public class Server {
 			String inputString = input.nextLine();
 			//verifier l'erreur avec le parse
 			isPortValid = Validator.isPortValid(inputString);
-			portNumber = Integer.parseInt(inputString);
-			if (!isPortValid)
+			if (isPortValid){
+				portNumber = Integer.parseInt(inputString);
+			}
+			else
 			{
 				System.out.println("The port you entered is not valid");
 			}

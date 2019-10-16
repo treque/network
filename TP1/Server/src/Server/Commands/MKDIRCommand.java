@@ -22,7 +22,6 @@ public class MKDIRCommand extends AbstractCommand {
 	            {
 	            	return "Failed to create directory! " + argument;
 	            }
-	    
 	        }
 	        else 
 	        {
@@ -30,9 +29,9 @@ public class MKDIRCommand extends AbstractCommand {
 	        }
 		}
 		 if (command.length == 2) {
-			 return "Succes: directory were created";
+			 return "Le dossier " + directories[0] + " a ete cree.";
 		 } else {
-			 return "Succes: directories were created";
+			 return "Multiples dossiers ont ete crees";
 		 }
 		
 

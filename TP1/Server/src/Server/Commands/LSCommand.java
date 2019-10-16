@@ -15,8 +15,19 @@ public class LSCommand extends AbstractCommand {
 	{
 		// should current dir be passed instead of currentpath
 		// File currentDir = new File(System.getProperty("user.dir"));
-		String[] dirFilesNames = currentDir.list();
-		return Arrays.toString(dirFilesNames);
+		String fileList = "";
+		for (File file : currentDir.listFiles())
+		{
+			if (file.isFile())
+			{
+				fileList += "[File] " + file.getName() + "\n";
+			}
+			else
+			{
+				fileList += "[Folder] " + file.getName() + "\n";
+			}
+		}
+		return fileList;
 	}
 
 }

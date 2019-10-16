@@ -11,8 +11,12 @@ public class DOWNLOADCommand extends AbstractCommand {
 	
 	@Override
 	public String executeCommand(String[] command) {
-		// TODO Auto-generated method stub
-		return "this is what DONWLOAD does";
+		File newFile = new File(currentDir.getAbsolutePath() + File.separator + command[1]);
+		if (newFile.exists())
+		{
+			return "size " + Double.toString(newFile.length());
+		}
+		return "Error, file does not exist.";
 	}
 
 }

@@ -14,7 +14,7 @@ public class UPLOADCommand extends AbstractCommand
 	public String executeCommand(String[] command) 
 	{
 		// TODO Auto-generated method stub
-		return "upload something hihi";
+		return "filename " + command[1];
 	}
 
 }
