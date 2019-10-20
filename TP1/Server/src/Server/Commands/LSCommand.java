@@ -2,7 +2,6 @@ package Server.Commands;
 
 import java.io.File;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class LSCommand extends AbstractCommand {
 
@@ -14,8 +13,6 @@ public class LSCommand extends AbstractCommand {
 	@Override
 	public String executeCommand(String[] command) 
 	{
-		// should current dir be passed instead of currentpath
-		// File currentDir = new File(System.getProperty("user.dir"));
 		String fileList = "";
 		for (File file : currentDir.listFiles())
 		{

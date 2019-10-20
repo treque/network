@@ -21,7 +21,6 @@ public class Validator {
 		
 	}
 	
-	// refactor s t pppppppppppppp
 	public static boolean isIPValid(String IPInput)
 	{
 		String[] IPsChar = IPInput.split("\\.");

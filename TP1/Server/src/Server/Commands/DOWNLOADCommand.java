@@ -33,7 +33,6 @@ public class DOWNLOADCommand extends AbstractCommand {
 				bis.close();
 				return "";
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
