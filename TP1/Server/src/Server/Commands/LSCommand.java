@@ -1,13 +1,14 @@
 package Server.Commands;
 
 import java.io.File;
+import java.net.Socket;
 import java.util.Arrays;
 
 public class LSCommand extends AbstractCommand {
 
-	LSCommand(File currentDir) 
+	LSCommand(File currentDir, Socket socket) 
 	{
-		super(currentDir);
+		super(currentDir, socket);
 	}
 
 	@Override

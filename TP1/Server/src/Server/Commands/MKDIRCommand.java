@@ -1,13 +1,14 @@
 package Server.Commands;
 
 import java.io.File;
+import java.net.Socket;
 import java.util.Arrays;
 
 public class MKDIRCommand extends AbstractCommand {
 
-	MKDIRCommand(File currentDir) 
+	MKDIRCommand(File currentDir, Socket socket) 
 	{
-		super(currentDir);
+		super(currentDir, socket);
 	}
 	
 	@Override

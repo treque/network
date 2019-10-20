@@ -31,9 +31,6 @@ public class Client {
 		int currentBytes = 0;
 		Scanner input = null;
 		try {
-			// Création d'un socket client vers le serveur. Ici 127.0.0.1 est indicateur que
-			// le serveur s'exécute sur la machine locale. Il faut changer 127.0.0.1 pour
-			// l'adresse IP du serveur si celui-ci ne s'exécute pas sur la même machine. Le port est 5000.
 			String serverAddress = null;
 			int portNumber = 0;
 			input = new Scanner(System.in);
@@ -49,7 +46,6 @@ public class Client {
 			do {
 				System.out.println("PORT: \n");
 				String inputString = input.nextLine();
-				 // verifier l'erreur avec le parse
 				isPortValid = Validator.isPortValid(inputString);
 				if (isPortValid){
 					portNumber = Integer.parseInt(inputString);
@@ -68,15 +64,20 @@ public class Client {
 			while (!value.equals("exit")) 
 			{
 				value = input.nextLine();
-				dos.writeUTF(value); // faire un check
-				String response = in.readUTF();
+				System.out.println("VALUE SENT: " + value);
+				dos.writeUTF(value);
+				dos.flush();
+				String serverResponse = in.readUTF();
+				
 				// download. if size is received
-				if (response.startsWith("size"))
+				if (serverResponse.startsWith("size"))
 				{
-					int size = (int) Double.parseDouble(response.split(" ")[1]);
+					int size = (int) Double.parseDouble(serverResponse.split(" ")[1]);
 					byte [] byteArray = new byte[size];
 					String fileName = value.split(" ")[1];
-					fos = new FileOutputStream("downloads" + File.separator + fileName);
+					
+					// download to initial directory
+					fos = new FileOutputStream(System.getProperty("user.dir") + File.separator + fileName);
 					bos = new BufferedOutputStream(fos);
 					bytesRead = in.read(byteArray, 0, byteArray.length);
 					currentBytes = bytesRead;
@@ -94,10 +95,12 @@ public class Client {
 					System.out.println("Le fichier " + fileName + " a bien ete telecharge.");
 				}
 				
-				// upload	
-				else if (response.startsWith("filename"))
+				// upload. after server receives size of file, it returns the initial name of file to the client to process.
+				else if (serverResponse.startsWith("filename"))
 				{
-					String fileName = response.split(" ")[1];
+					String fileName = serverResponse.split(" ")[1];
+					
+					// upload file from current directory
 					File newFile = new File(System.getProperty("user.dir") + File.separator + fileName);
 					if (newFile.exists())
 					{
@@ -109,19 +112,18 @@ public class Client {
 						dos.writeUTF("size " + newFile.length());
 						dos.flush();
 						dos.write(byteArray, 0, byteArray.length);
+						dos.flush();
 						System.out.println("Le fichier " + fileName + " a bien ete televerse.");
 					}
 					else System.out.println("Le fichier " + fileName + " n'existe pas.");
 				}
-				else 
+				else
 				{
-					System.out.println(response);
+					System.out.println(serverResponse);
 				}
-				dos.flush();
 				System.out.println(">>");
 			}
 		} finally {
-			// Fermeture of stuff
 			System.out.println("Vous avez ete deconnecte avec succes.");
 			if (fis!=null) fis.close();
 			if (bis!=null) bis.close();

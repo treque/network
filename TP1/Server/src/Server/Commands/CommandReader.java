@@ -20,12 +20,12 @@ public class CommandReader {
 		switch(command[0]) {
 		case("ls"):
 			if (hasRightArgumentNumber(1, command)) {
-				LSCommand lsExecutor = new LSCommand(currentDir);
+				LSCommand lsExecutor = new LSCommand(currentDir, socket);
 				return lsExecutor.executeCommand(command);
 			}
 		case("cd"):
 			if (hasRightArgumentNumber(2, command)) {
-				CDCommand cdExecutor = new CDCommand(currentDir);
+				CDCommand cdExecutor = new CDCommand(currentDir, socket);
 				try {
 					this.currentDir = new File(cdExecutor.executeCommand(command));
 				} catch (IllegalArgumentException e) {
@@ -36,17 +36,17 @@ public class CommandReader {
 
 		case("mkdir"):
 			if(command.length > 1) {
-				MKDIRCommand mkdirExecutor = new MKDIRCommand(currentDir);
+				MKDIRCommand mkdirExecutor = new MKDIRCommand(currentDir, socket);
 				return mkdirExecutor.executeCommand(command);
 			}
 		case("upload"):
 			if (hasRightArgumentNumber(2, command)) {
-				UPLOADCommand uploadExecutor = new UPLOADCommand(currentDir);
+				UPLOADCommand uploadExecutor = new UPLOADCommand(currentDir, socket);
 				return uploadExecutor.executeCommand(command);
 			}
 		case("download"):
 			if (hasRightArgumentNumber(2, command)) {
-				DOWNLOADCommand downloadExecutor = new DOWNLOADCommand(currentDir);
+				DOWNLOADCommand downloadExecutor = new DOWNLOADCommand(currentDir, socket);
 				return downloadExecutor.executeCommand(command);
 			}
 		case("exit"):

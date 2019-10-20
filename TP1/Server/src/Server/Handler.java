@@ -31,14 +31,6 @@ public class Handler extends Thread {
 		cmdReader = new CommandReader(new File(System.getProperty("user.dir")), socket);
 		DataInputStream in = null;
 		DataOutputStream dos = null;
-		// upload
-		FileInputStream fis = null;
-		BufferedInputStream bis = null;
-		// download
-		FileOutputStream fos = null;
-		BufferedOutputStream bos = null;
-		int bytesRead;
-		int currentBytes = 0;
 		
 		SimpleDateFormat dateFormatter= new SimpleDateFormat(" yyyy-MM-dd'@'HH:mm:ss");
 		
@@ -51,54 +43,14 @@ public class Handler extends Thread {
 			{
 				clientInput = in.readUTF();
 				Date date = new Date(System.currentTimeMillis());
-				System.out.println("[" + socket.getInetAddress().toString() + ":" + socket.getPort() + dateFormatter.format(date) + "]: " + clientInput); // a format
-				String response = cmdReader.executor(clientInput);
-				
-				// uploading file to client
-				if (response.startsWith("size"))
+				System.out.println("[" + socket.getInetAddress().toString().substring(1) + ":" + socket.getPort() + dateFormatter.format(date) + "]: " + clientInput); // a format
+				String serverResponse = cmdReader.executor(clientInput);
+				System.out.println("REPONSE"+serverResponse);
+				if (serverResponse != "")
 				{
-					File newFile = new File(cmdReader.currentDir.getPath() + File.separator + clientInput.split(" ")[1]);
-					byte [] byteArray = new byte[(int)newFile.length()];
-					fis = new FileInputStream(newFile);
-					bis = new BufferedInputStream(fis);
-					bis.read(byteArray, 0, byteArray.length);
-					
-					dos.writeUTF(response);
-					dos.flush();
-					dos.write(byteArray, 0, byteArray.length);
-					dos.flush();
+					dos.writeUTF(serverResponse);
+					dos.flush();					
 				}
-				
-				// receiving file from client
-				else if (response.startsWith("filename"))
-				{	
-					dos.writeUTF(response);
-					dos.flush();
-					clientInput = in.readUTF();
-					int size = (int) Double.parseDouble(clientInput.split(" ")[1]);
-					byte [] byteArray = new byte[size];
-					fos = new FileOutputStream("uploads" + File.separator + response.split(" ")[1]);
-					bos = new BufferedOutputStream(fos);
-					bytesRead = in.read(byteArray, 0, byteArray.length);
-					currentBytes = bytesRead;
-					do {
-						System.out.println("...");
-						bytesRead = in.read(byteArray, currentBytes, (byteArray.length - currentBytes));
-						if (bytesRead >= 0)
-						{
-							currentBytes += bytesRead;
-						}
-					} while (currentBytes < size);
-					
-					bos.write(byteArray, 0, currentBytes);
-					bos.flush();
-				}
-				
-				else {
-					dos.writeUTF(response);
-				}
-
-				dos.flush();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -106,12 +58,7 @@ public class Handler extends Thread {
 			try {
 				if (in!=null) in.close();
 				if (dos!=null) dos.close();
-				if (fis!=null) fis.close();
-				if (bis!=null) bis.close();	
-				if (fos!=null) fos.close();
-				if (bos!=null) bos.close();		
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 

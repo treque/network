@@ -2,13 +2,14 @@ package Server.Commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.Socket;
 
 public class CDCommand extends AbstractCommand 
 {
 	
-	CDCommand(File currentDir) 
+	CDCommand(File currentDir, Socket socket) 
 	{
-		super(currentDir);
+		super(currentDir, socket);
 	}
 
 	@Override
