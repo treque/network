@@ -1,4 +1,6 @@
 package Server.Commands;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.net.Socket;
 
@@ -15,7 +17,7 @@ public class CommandReader {
 		this.socket = socket;
 	}
 	
-	public String executor(String input) {
+	public String executor(String input, DataInputStream in, DataOutputStream dos) {
 		String[] command = input.split(" ");
 		switch(command[0]) {
 		case("ls"):
@@ -41,12 +43,12 @@ public class CommandReader {
 			}
 		case("upload"):
 			if (hasRightArgumentNumber(2, command)) {
-				UPLOADCommand uploadExecutor = new UPLOADCommand(currentDir, socket);
+				UPLOADCommand uploadExecutor = new UPLOADCommand(currentDir, socket, dos, in);
 				return uploadExecutor.executeCommand(command);
 			}
 		case("download"):
 			if (hasRightArgumentNumber(2, command)) {
-				DOWNLOADCommand downloadExecutor = new DOWNLOADCommand(currentDir, socket);
+				DOWNLOADCommand downloadExecutor = new DOWNLOADCommand(currentDir, socket, dos);
 				return downloadExecutor.executeCommand(command);
 			}
 		case("exit"):

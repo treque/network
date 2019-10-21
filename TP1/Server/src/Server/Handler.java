@@ -40,7 +40,7 @@ public class Handler extends Thread {
 				clientInput = in.readUTF();
 				Date date = new Date(System.currentTimeMillis());
 				System.out.println("[" + socket.getInetAddress().toString().substring(1) + ":" + socket.getPort() + dateFormatter.format(date) + "]: " + clientInput); // a format
-				String serverResponse = cmdReader.executor(clientInput);
+				String serverResponse = cmdReader.executor(clientInput, in, dos);
 				System.out.println("REPONSE"+serverResponse);
 				if (serverResponse != "")
 				{

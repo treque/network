@@ -9,9 +9,12 @@ import java.net.Socket;
 
 public class DOWNLOADCommand extends AbstractCommand {
 
-	DOWNLOADCommand(File currentDir, Socket socket) 
+	private DataOutputStream dos;
+	
+	DOWNLOADCommand(File currentDir, Socket socket, DataOutputStream dos) 
 	{
 		super(currentDir, socket);
+		this.dos = dos;
 	}
 	
 	@Override
@@ -20,7 +23,6 @@ public class DOWNLOADCommand extends AbstractCommand {
 		if (newFile.exists())
 		{
 			BufferedInputStream bis = null;
-			DataOutputStream dos = null;
 			FileInputStream fis = null;
 			
 			try {
@@ -41,7 +43,6 @@ public class DOWNLOADCommand extends AbstractCommand {
 			} finally {
 					try {
 						if(bis !=null) bis.close();
-						if(dos !=null) dos.close();
 						if(fis !=null) fis.close();
 					} catch (IOException e) {
 						e.printStackTrace();

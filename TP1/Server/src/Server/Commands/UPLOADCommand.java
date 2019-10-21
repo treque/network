@@ -10,10 +10,15 @@ import java.net.Socket;
 
 public class UPLOADCommand extends AbstractCommand 
 {
-
-	UPLOADCommand(File currentDir, Socket socket) 
+	
+	private DataOutputStream dos;
+	private DataInputStream in;
+	
+	UPLOADCommand(File currentDir, Socket socket, DataOutputStream dos, DataInputStream in) 
 	{
 		super(currentDir, socket);
+		this.dos = dos;
+		this.in = in;
 	}
 	
 	@Override
@@ -21,8 +26,6 @@ public class UPLOADCommand extends AbstractCommand
 	{
 		int bytesRead;
 		int currentBytes = 0;
-		DataOutputStream dos = null;
-		DataInputStream in = null;
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
 		try {
@@ -57,10 +60,8 @@ public class UPLOADCommand extends AbstractCommand
 			e.printStackTrace();
 		} finally {
 			try {
-				if(in !=null) in.close();
 				if(bos !=null) bos.close();
 				if(fos !=null) fos.close();
-				if(dos !=null) dos.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
