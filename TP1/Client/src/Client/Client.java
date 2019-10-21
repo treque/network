@@ -127,6 +127,8 @@ public class Client {
 			System.out.println("Vous avez ete deconnecte avec succes.");
 			if (fis!=null) fis.close();
 			if (bis!=null) bis.close();
+			if (fos!=null) fos.close();
+			if (bos!=null) bos.close();
 			if (dos!=null) dos.close();
 			if (in!= null) in.close();
 			if (input!=null) input.close();

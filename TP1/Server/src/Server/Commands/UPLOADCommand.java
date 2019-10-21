@@ -21,10 +21,13 @@ public class UPLOADCommand extends AbstractCommand
 	{
 		int bytesRead;
 		int currentBytes = 0;
-		
+		DataOutputStream dos = null;
+		DataInputStream in = null;
+		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
 		try {
-			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-			DataInputStream in = new DataInputStream(socket.getInputStream());
+			dos = new DataOutputStream(socket.getOutputStream());
+			in = new DataInputStream(socket.getInputStream());
 			
 			// respond to the client the name of the file they sent
 			dos.writeUTF("filename " + command[1]);
@@ -33,8 +36,8 @@ public class UPLOADCommand extends AbstractCommand
 			String clientResponse = in.readUTF();
 			int size = (int) Double.parseDouble(clientResponse.split(" ")[1]);
 			byte [] byteArray = new byte[size];
-			FileOutputStream fos = new FileOutputStream(currentDir + File.separator + command[1]);
-			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			fos = new FileOutputStream(currentDir + File.separator + command[1]);
+			bos = new BufferedOutputStream(fos);
 			bytesRead = in.read(byteArray, 0, byteArray.length);
 			currentBytes = bytesRead;
 			do {
@@ -48,11 +51,19 @@ public class UPLOADCommand extends AbstractCommand
 			
 			bos.write(byteArray, 0, currentBytes);
 			bos.flush();
-			bos.close();
-			fos.close();
+			
 			return "";
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(in !=null) in.close();
+				if(bos !=null) bos.close();
+				if(fos !=null) fos.close();
+				if(dos !=null) dos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return "";
 	}

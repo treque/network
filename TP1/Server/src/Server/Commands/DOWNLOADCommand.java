@@ -19,21 +19,33 @@ public class DOWNLOADCommand extends AbstractCommand {
 		File newFile = new File(currentDir.getAbsolutePath() + File.separator + command[1]);
 		if (newFile.exists())
 		{
+			BufferedInputStream bis = null;
+			DataOutputStream dos = null;
+			FileInputStream fis = null;
+			
 			try {
 				byte [] byteArray = new byte[(int)newFile.length()];
-				FileInputStream fis = new FileInputStream(newFile);
-				BufferedInputStream bis = new BufferedInputStream(fis);
+				fis = new FileInputStream(newFile);
+				bis = new BufferedInputStream(fis);
 				bis.read(byteArray, 0, byteArray.length);
-				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+				dos = new DataOutputStream(socket.getOutputStream());
 				dos.writeUTF("size " + Double.toString(newFile.length()));
 				dos.flush();
 				dos.write(byteArray, 0, byteArray.length);
 				dos.flush();
 				
-				bis.close();
+				
 				return "";
 			} catch (IOException e) {
 				e.printStackTrace();
+			} finally {
+					try {
+						if(bis !=null) bis.close();
+						if(dos !=null) dos.close();
+						if(fis !=null) fis.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 			}
 		}
 		return "Error, file does not exist.";
